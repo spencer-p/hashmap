@@ -39,7 +39,8 @@ LinkedList *ll_new();
  */
 int ll_insert(LinkedList *list, char *key, void *value);
 
-/* args:
+/*
+ * args:
  *  list - list to delete from
  *  key - key to delete
  * returns:
@@ -47,7 +48,8 @@ int ll_insert(LinkedList *list, char *key, void *value);
  */
 void *ll_remove(LinkedList *list, char *key);
 
-/* args:
+/*
+ * args:
  *  list - list to get from
  *  key - key to get
  * returns:
