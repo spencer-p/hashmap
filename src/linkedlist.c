@@ -128,6 +128,7 @@ void ll_recursive_delete(Node *head) {
 Node *node_new(char *key, void *value) {
 	Node *new;
 	char *key_copy;
+	int key_length;
 
 	// Create new node
 	if ((new = (Node *) malloc(sizeof(Node))) != NULL) {
@@ -137,7 +138,9 @@ Node *node_new(char *key, void *value) {
 		new->next = NULL;
 
 		// Create a copy of the key
-		if ((key_copy = (char *) malloc((strlen(key)+1)*sizeof(char))) != NULL) {
+		key_length = strlen(key)+1;
+		if ((key_copy = (char *) malloc(key_length*sizeof(char))) != NULL) {
+			strncpy(key_copy, key, key_length);
 			new->key = key_copy;
 		}
 		else {
