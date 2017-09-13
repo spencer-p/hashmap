@@ -131,14 +131,14 @@ Node *node_new(char *key, void *value) {
 
 	// Create new node
 	if ((new = (Node *) malloc(sizeof(Node))) != NULL) {
+		// Initialize values
+		new->value = value;
+		new->key = NULL;
+		new->next = NULL;
 
 		// Create a copy of the key
 		if ((key_copy = (char *) malloc((strlen(key)+1)*sizeof(char))) != NULL) {
-
-			// Initialize values
 			new->key = key_copy;
-			new->value = value;
-			new->next = NULL;
 		}
 		else {
 
