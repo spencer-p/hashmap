@@ -8,6 +8,9 @@
 #include <string.h>
 #include "linkedlist.h"
 
+// Private functions
+void ll_recursive_delete(Node *head);
+
 // Node management
 Node *node_new(char *key, void *value);
 Node *node_free(Node *node);
@@ -93,6 +96,18 @@ void *ll_get(LinkedList *list, char *key) {
 
 	// Return the node's value
 	return t->value;
+}
+
+void ll_free(LinkedList *list) {
+	ll_recursive_delete(list->head);
+	free(list);
+}
+
+void ll_recursive_delete(Node *head) {
+	if (head->next != NULL) {
+		ll_recursive_delete(head->next);
+	}
+	node_free(head);
 }
 
 /*

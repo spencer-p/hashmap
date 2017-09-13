@@ -59,4 +59,10 @@ void *ll_remove(LinkedList *list, char *key);
  */
 void *ll_get(LinkedList *list, char *key);
 
+/*
+ * args:
+ *	list - list to delete
+ */
+void ll_free(LinkedList *list);
+
 #endif
