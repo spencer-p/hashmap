@@ -38,7 +38,10 @@ int ll_insert(LinkedList *list, char *key, void *value) {
 		new->next = list->head;
 
 		// Set node to head
-		list->head = new->next;
+		list->head = new;
+
+		// Change list length
+		list->length++;
 
 		return 1;
 	}
@@ -56,6 +59,9 @@ void *ll_remove(LinkedList *list, char *key) {
 
 		// Reset head
 		list->head = NULL;
+
+		// Change list length
+		list->length--;
 	}
 	else if (list->length > 1) {
 		// Scrub to the node before
@@ -66,6 +72,9 @@ void *ll_remove(LinkedList *list, char *key) {
 
 				// Remove from the linked list
 				t->next = t->next->next;
+				
+				// Change list length
+				list->length--;
 			}
 		}
 	}
@@ -124,7 +133,7 @@ Node *node_new(char *key, void *value) {
 	if ((new = (Node *) malloc(sizeof(Node))) != NULL) {
 
 		// Create a copy of the key
-		if ((key_copy = (char *) malloc(strlen(key)*sizeof(char))) != NULL) {
+		if ((key_copy = (char *) malloc((strlen(key)+1)*sizeof(char))) != NULL) {
 
 			// Initialize values
 			new->key = key_copy;
