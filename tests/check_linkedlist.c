@@ -59,14 +59,14 @@ START_TEST(test_remove_head) {
 	char *value;
 
 	// Remove head
-	value = ll_remove(list, "1");
+	value = ll_remove(list, "5");
 
-	ck_assert_str_eq(value, "one");
+	ck_assert_str_eq(value, "five");
 
 	// Get new head
-	value = ll_get(list, "2");
+	value = ll_get(list, "4");
 
-	ck_assert_str_eq(value, "two");
+	ck_assert_str_eq(value, "four");
 }
 END_TEST
 
