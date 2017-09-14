@@ -113,7 +113,9 @@ void *ll_get(LinkedList *list, char *key) {
 }
 
 void ll_free(LinkedList *list) {
-	ll_recursive_delete(list->head);
+	if (list->head != NULL) {
+		ll_recursive_delete(list->head);
+	}
 	free(list);
 }
 
