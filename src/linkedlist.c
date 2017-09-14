@@ -53,12 +53,17 @@ void *ll_remove(LinkedList *list, char *key) {
 	Node *t = NULL;
 	void *orphan_value = NULL;
 
-	if (list->length == 1) {
-		// Free/get orphan value
-		orphan_value = node_free(list->head);
+	// Only one element or first element is match
+	if (list->length == 1 || strcmp(list->head->key, key) == 0) {
+
+		// Save head
+		t = list->head;
 
 		// Reset head
-		list->head = NULL;
+		list->head = t->next;
+
+		// Free/get orphan value
+		orphan_value = node_free(t);
 
 		// Change list length
 		list->length--;
