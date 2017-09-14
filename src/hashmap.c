@@ -18,7 +18,7 @@ int mknum(char c);
 
 Hashmap *hm_new(int capacity) {
 	Hashmap *new = NULL;
-	capacity = (capacity == 0) ? 20 : capacity;
+	capacity = (capacity == 0) ? DEFAULT_CAPACITY : capacity;
 
 	if ((new = (Hashmap *) malloc(sizeof(Hashmap))) != NULL) {
 		// Initialize ints
