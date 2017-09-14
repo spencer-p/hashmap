@@ -11,7 +11,6 @@
 LinkedList *list;
 
 void setup(void) {
-	int i;
 	list = ll_new();
 	ll_insert(list, "1", "one");
 	ll_insert(list, "2", "two");
