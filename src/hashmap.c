@@ -13,7 +13,7 @@
 
 // Private stuff
 long long hash_string(char *string);
-long long mystery_hash(char *str, int len, int key, int expstart, int (*mknum)(char c), int reverse);
+long long mystery_hash(char *str, int len, int key, int expstart, int reverse);
 int mknum(char c);
 
 Hashmap *hm_new(int capacity) {
@@ -89,18 +89,14 @@ void hm_free(Hashmap *hashmap) {
 }
 
 long long hash_string(char *string) {
-	return mystery_hash(string, strlen(string), 2, 1, mknum, 0);
+	return mystery_hash(string, strlen(string), 2, 1, 0);
 }
 
 // I don't actually know what this hash function is
-long long mystery_hash(char *str, int len, int key, int expstart, int (*mknum)(char c), int reverse) {
+long long mystery_hash(char *str, int len, int key, int expstart, int reverse) {
     long long hash = 0;
     for (int i = 0; i < len; i++) {
-        hash += mknum(str[(reverse) ? len-i-1 : i])*pow(key, expstart+i);
+        hash += ((int)str[(reverse) ? len-i-1 : i])*pow(key, expstart+i);
     }
     return hash;
-}
-
-int mknum(char c) {
-    return (int) c - 64;
 }
