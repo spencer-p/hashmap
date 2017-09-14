@@ -85,6 +85,28 @@ START_TEST(test_get) {
 }
 END_TEST
 
+START_TEST(test_set_existing) {
+	char *value;
+	int original_length;
+
+	original_length = list->length;
+
+	// Make sure 1 is already in there
+	value = ll_get(list, "1");
+	ck_assert_str_eq(value, "one");
+
+	// Set one to a new string
+	ll_insert(list, "1", "ONE");
+
+	// Check new value stored
+	value = ll_get(list, "1");
+	ck_assert_str_eq(value, "ONE");
+
+	// Check size didn't change
+	ck_assert_int_eq(list->length, original_length);
+}
+END_TEST
+
 Suite *linkedlist_suite(void) {
 	Suite *s;
 	TCase *tc_core;
@@ -100,6 +122,7 @@ Suite *linkedlist_suite(void) {
 	tcase_add_test(tc_core, test_remove);
 	tcase_add_test(tc_core, test_remove_head);
 	tcase_add_test(tc_core, test_get);
+	tcase_add_test(tc_core, test_set_existing);
 
 	suite_add_tcase(s, tc_core);
 
