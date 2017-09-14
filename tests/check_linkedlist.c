@@ -55,6 +55,21 @@ START_TEST(test_remove) {
 }
 END_TEST
 
+START_TEST(test_remove_head) {
+	char *value;
+
+	// Remove head
+	value = ll_remove(list, "1");
+
+	ck_assert_str_eq(value, "one");
+
+	// Get new head
+	value = ll_get(list, "2");
+
+	ck_assert_str_eq(value, "two");
+}
+END_TEST
+
 START_TEST(test_get) {
 	char *value;
 
@@ -83,6 +98,7 @@ Suite *linkedlist_suite(void) {
 	tcase_add_test(tc_core, test_create_list);
 	tcase_add_test(tc_core, test_insert);
 	tcase_add_test(tc_core, test_remove);
+	tcase_add_test(tc_core, test_remove_head);
 	tcase_add_test(tc_core, test_get);
 
 	suite_add_tcase(s, tc_core);
