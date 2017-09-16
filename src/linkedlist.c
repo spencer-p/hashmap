@@ -89,7 +89,7 @@ void *ll_remove(LinkedList *list, char *key) {
 
 				// Remove from the linked list
 				t->next = t->next->next;
-				
+
 				// Change list length
 				list->length--;
 			}

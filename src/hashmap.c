@@ -39,7 +39,7 @@ Hashmap *hm_new(int capacity) {
 
 int hm_set(Hashmap *hashmap, char *key, void *value) {
 	long long hash = hash_string(key) % hashmap->size;
-	
+
 	// Make the LL if necessary
 	if (hashmap->array[hash] == NULL) {
 		if ((hashmap->array[hash] = ll_new()) == NULL) {
@@ -58,7 +58,7 @@ void *hm_get(Hashmap *hashmap, char *key) {
 	if (hashmap->array[hash] != NULL) {
 		value = ll_get(hashmap->array[hash], key);
 	}
-	
+
 	return value;
 }
 
@@ -69,7 +69,7 @@ void *hm_delete(Hashmap *hashmap, char *key) {
 	if (hashmap->array[hash] != NULL) {
 		to_delete = ll_remove(hashmap->array[hash], key);
 	}
-	
+
 	return to_delete;
 }
 
