@@ -29,7 +29,16 @@ LinkedList *ll_new() {
 }
 
 int ll_insert(LinkedList *list, char *key, void *value) {
-	Node *new;
+	Node *new, *t;
+
+	// Try to reuse an existing node if possible
+	for (t = list->head; t != NULL; t = t->next) {
+		if (strcmp(t->key, key) == 0) {
+			// TODO this destroys the orphan value!
+			t->value = value;
+			return 1;
+		}
+	}
 
 	// Create new node
 	if ((new = node_new(key, value)) != NULL) {
