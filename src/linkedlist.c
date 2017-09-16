@@ -34,8 +34,14 @@ int ll_insert(LinkedList *list, char *key, void *value) {
 	// Try to reuse an existing node if possible
 	for (t = list->head; t != NULL; t = t->next) {
 		if (strcmp(t->key, key) == 0) {
+
+			// Set new value
 			// TODO this destroys the orphan value!
 			t->value = value;
+
+			// Change list length
+			list->length++;
+
 			return 1;
 		}
 	}
