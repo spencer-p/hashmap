@@ -39,9 +39,6 @@ int ll_insert(LinkedList *list, char *key, void *value) {
 			// TODO this destroys the orphan value!
 			t->value = value;
 
-			// Change list length
-			list->length++;
-
 			return 1;
 		}
 	}
