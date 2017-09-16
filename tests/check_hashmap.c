@@ -9,11 +9,16 @@
 #include "../src/hashmap.h"
 
 #define SIMPLE_SIZE 10
+#define SMALL_SIZE 2
 
 Hashmap *hm;
 
 void simple_setup(void) {
 	hm = hm_new(SIMPLE_SIZE);
+}
+
+void small_setup(void) {
+	hm = hm_new(SMALL_SIZE);
 }
 
 void teardown(void) {
@@ -65,9 +70,35 @@ START_TEST(test_get) {
 }
 END_TEST
 
+START_TEST(test_small_set) {
+	ck_assert(hm_set(hm, "1", "one"));
+	ck_assert(hm_set(hm, "2", "two"));
+	ck_assert(hm_set(hm, "3", "three"));
+	ck_assert(hm_set(hm, "4", "four"));
+	ck_assert(hm_set(hm, "5", "five"));
+
+	ck_assert_float_eq(hm_load(hm), (float) 5/SMALL_SIZE);
+}
+END_TEST
+
+START_TEST(test_small_get) {
+	hm_set(hm, "1", "one");
+	hm_set(hm, "2", "two");
+	hm_set(hm, "3", "three");
+	hm_set(hm, "4", "four");
+	hm_set(hm, "5", "five");
+
+	ck_assert_str_eq(hm_get(hm, "1"), "one");
+	ck_assert_str_eq(hm_get(hm, "2"), "two");
+	ck_assert_str_eq(hm_get(hm, "3"), "three");
+	ck_assert_str_eq(hm_get(hm, "4"), "four");
+	ck_assert_str_eq(hm_get(hm, "5"), "five");
+}
+END_TEST
+
 Suite *hashmap_suite(void) {
 	Suite *s;
-	TCase *tc_simple;
+	TCase *tc_simple, *tc_small;
 
 	s = suite_create("Hashmap");
 
@@ -81,7 +112,20 @@ Suite *hashmap_suite(void) {
 	tcase_add_test(tc_simple, test_reset);
 	tcase_add_test(tc_simple, test_get);
 
+	/*
+	 * Small tests
+	 * These make sure the hashmap can work even when the amount of keys used
+	 * exceeds the number of slots in the hashmap.
+	 * These tests put 5 elements in a hashmap with capacity 2.
+	 */
+	tc_small = tcase_create("Small");
+
+	tcase_add_checked_fixture(tc_small, small_setup, teardown);
+	tcase_add_test(tc_small, test_small_set);
+	tcase_add_test(tc_small, test_small_get);
+
 	suite_add_tcase(s, tc_simple);
+	suite_add_tcase(s, tc_small);
 
 	return s;
 }
