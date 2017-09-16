@@ -55,7 +55,7 @@ START_TEST(test_reset) {
 	ck_assert_str_eq(hm_get(hm, "1"), "ONE");
 
 	// Load should be 1
-	ck_assert_float_eq(hm_load(hm), 1/SIMPLE_SIZE);
+	ck_assert_float_eq(hm_load(hm), (float) 1/SIMPLE_SIZE);
 }
 END_TEST
 
