@@ -39,6 +39,7 @@ Hashmap *hm_new(int capacity) {
 
 int hm_set(Hashmap *hashmap, char *key, void *value) {
 	long long hash = hash_string(key) % hashmap->size;
+	int original_length, result;
 
 	// Make the LL if necessary
 	if (hashmap->array[hash] == NULL) {
@@ -48,7 +49,18 @@ int hm_set(Hashmap *hashmap, char *key, void *value) {
 		}
 	}
 
-	return ll_insert(hashmap->array[hash], key, value);
+	// Save length to see if we're creating a new node or not
+	original_length = hashmap->array[hash]->length;
+
+	// Do the insert
+	result = ll_insert(hashmap->array[hash], key, value);
+
+	// Update used if necessary
+	if (original_length != hashmap->array[hash]->length) {
+		hashmap->used++;
+	}
+
+	return result;
 }
 
 void *hm_get(Hashmap *hashmap, char *key) {
@@ -67,7 +79,11 @@ void *hm_delete(Hashmap *hashmap, char *key) {
 	long long hash = hash_string(key) % hashmap->size;
 
 	if (hashmap->array[hash] != NULL) {
+		// Delete it
 		to_delete = ll_remove(hashmap->array[hash], key);
+
+		// Update used
+		hashmap->used--;
 	}
 
 	return to_delete;
