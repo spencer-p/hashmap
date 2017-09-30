@@ -108,7 +108,8 @@ long long hash_string(char *string) {
 	return mystery_hash(string, strlen(string), 2, 1, 0);
 }
 
-// I don't actually know what this hash function is
+// I don't know where I originally got this hash function (hence the name).
+// It's just a simple exponential sum.
 long long mystery_hash(char *str, int len, int key, int expstart, int reverse) {
     long long hash = 0;
     for (int i = 0; i < len; i++) {
